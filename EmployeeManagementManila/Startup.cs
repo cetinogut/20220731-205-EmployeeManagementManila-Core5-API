@@ -8,8 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +21,8 @@ namespace EmployeeManagementManila
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+
             Configuration = configuration;
         }
 
@@ -30,6 +34,10 @@ namespace EmployeeManagementManila
 
             services.ConfigureCors();
             services.ConfigureIISIntegration();
+
+
+            services.ConfigureLoggerService();
+            services.ConfigureMySqlContext(Configuration);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
