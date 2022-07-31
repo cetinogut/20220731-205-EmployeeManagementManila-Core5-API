@@ -16,7 +16,7 @@ namespace Entities.Models
         public string? AccountType { get; set; }
 
         [ForeignKey(nameof(Employee))]
-        public Guid OwnerId { get; set; }
+        public Guid EmployeeId { get; set; }
         public Employee? Employee { get; set; }
     }
 }
