@@ -16,10 +16,9 @@ namespace Entities.Models
 
         public string? MiddleName { get; set; }
 
-
-        [Required(ErrorMessage = "Last name is required")]
-        [StringLength(100, ErrorMessage = "Last name cannot be longer than 100 characters")]
-        public string? Address { get; set; }
+        [Required(ErrorMessage = "Last Name is required")]
+        [StringLength(100, ErrorMessage = "Last Name can't be longer than 60 characters")]
+        public string? LastName { get; set; }
 
         public DateTime DateOfBirth { get; set; }
         public ICollection<Account>? Accounts { get; set; }

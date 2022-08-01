@@ -16,18 +16,20 @@ namespace EmployeeManagementManila.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILoggerManager _logger;
+        //private readonly ILoggerManager _logger;
 
         //private readonly ILogger<WeatherForecastController> _logger;
-        public WeatherForecastController(ILoggerManager logger)
-        {
-            _logger = logger;
-        }
+        //public WeatherForecastController(ILoggerManager logger)
+        //{
+        //    _logger = logger;
+        //}
 
         //public WeatherForecastController(ILogger<WeatherForecastController> logger)
         //{
         //    _logger = logger;
         //}
+
+
 
         //[HttpGet]
         //public IEnumerable<WeatherForecast> Get()
@@ -42,13 +44,26 @@ namespace EmployeeManagementManila.Controllers
         //    .ToArray();
         //}
 
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    _logger.LogInformation("Here is information message from the controller.");
+        //    _logger.LogDebug("Here is debug message from the controller.");
+        //    _logger.LogWarning("Here is warning message from the controller.");
+        //    _logger.LogError("Here is error message from the controller.");
+        //    return new string[] { "value1", "value2" };
+        //}
+
+        private IRepositoryWrapper _repository;
+        public WeatherForecastController(IRepositoryWrapper repository)
+        {
+            _repository = repository;
+        }
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            _logger.LogInformation("Here is information message from the controller.");
-            _logger.LogDebug("Here is debug message from the controller.");
-            _logger.LogWarning("Here is warning message from the controller.");
-            _logger.LogError("Here is error message from the controller.");
+            var staff2Accounts = _repository.Account.FindByCondition(x => x.AccountType.Equals("Staff-2"));
+            var employees = _repository.Employee.FindAll();
             return new string[] { "value1", "value2" };
         }
     }

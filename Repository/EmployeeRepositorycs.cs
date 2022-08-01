@@ -1,14 +1,23 @@
 ﻿using Contracts;
 using Entities;
 using Entities.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Repository
 {
-    public class OwnerRepository : RepositoryBase<Employee>, IEmployeeRepository
+    public class EmployeeRepository : RepositoryBase<Employee>, IEmployeeRepository
     {
-        public OwnerRepository(RepositoryContext repositoryContext)
+        public EmployeeRepository(RepositoryContext repositoryContext)
             : base(repositoryContext)
         {
+        }
+
+        public IEnumerable<Employee> GetAllEmployees()
+        {
+            return FindAll()
+                .OrderBy(emp => emp.LastName)
+                .ToList();
         }
     }
 }

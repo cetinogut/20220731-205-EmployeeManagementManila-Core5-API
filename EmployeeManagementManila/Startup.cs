@@ -1,3 +1,4 @@
+using Contracts;
 using EmployeeManagementManila.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NLog;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,6 +40,7 @@ namespace EmployeeManagementManila
 
             services.ConfigureLoggerService();
             services.ConfigureMySqlContext(Configuration);
+            services.ConfigureRepositoryWrapper();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
