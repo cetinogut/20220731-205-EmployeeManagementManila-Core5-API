@@ -5,6 +5,7 @@ using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EmployeeManagementManila.Controllers
 {
@@ -159,6 +160,36 @@ namespace EmployeeManagementManila.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Something went wrong inside UpdateEmployee action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteEmployee(Guid id)
+        {
+            try
+            {
+                var employee = _repository.Employee.GetEmployeeById(id);
+                if (employee == null)
+                {
+                    _logger.LogError($"Employee with id: {id}, hasn't been found in db.");
+                    return NotFound();
+                }
+
+                if (_repository.Account.AccountsByEmployee(id).Any())
+                {
+                    _logger.LogError($"Cannot delete employee with id: {id}. It has related accounts. Delete those accounts first");
+                    return BadRequest("Cannot delete employee. It has related accounts. Delete those accounts first");
+                }
+
+                _repository.Employee.DeleteEmployee(employee);
+                _repository.Save();
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside DeleteEmployee action: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }

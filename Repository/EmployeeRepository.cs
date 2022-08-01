@@ -44,5 +44,10 @@ namespace Repository
         {
             Update(employee);
         }
+
+        public void DeleteEmployee(Employee employee)
+        {
+            Delete(employee);
+        }
     }
 }
