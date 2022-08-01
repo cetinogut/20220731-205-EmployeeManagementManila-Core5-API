@@ -10,5 +10,8 @@ namespace Contracts
 
         Employee GetEmployeeById(Guid employeeId);
         Employee GetEmployeeWithDetails(Guid employeeId);
+
+        void CreateEmployee(Employee employee);
+        void UpdateEmployee(Employee employee);
     }
 }

@@ -11,6 +11,8 @@ namespace EmployeeManagementManila
         {
             CreateMap<Employee, EmployeeDTO>();
             CreateMap<Account, AccountDTO>();
+            CreateMap<EmployeeForCreationDTO, Employee>();
+            CreateMap<EmployeeForUpdateDTO, Employee>();
         }
     }
 }

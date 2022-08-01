@@ -15,6 +15,11 @@ namespace Repository
         {
         }
 
+        public void CreateEmployee(Employee employee)
+        {
+            Create(employee);
+        }
+
         public IEnumerable<Employee> GetAllEmployees()
         {
             return FindAll()
@@ -33,6 +38,11 @@ namespace Repository
             return FindByCondition(employee => employee.Id.Equals(ownerId))
                 .Include(acc => acc.Accounts)
                 .FirstOrDefault();
+        }
+
+        public void UpdateEmployee(Employee employee)
+        {
+            Update(employee);
         }
     }
 }
