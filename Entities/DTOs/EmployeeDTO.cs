@@ -13,8 +13,9 @@ namespace Entities.DTOs
         public string? MiddleName { get; set; }
         public string? LastName { get; set; }
 
-
         public DateTime DateOfBirth { get; set; }
-        
+
+        public IEnumerable<AccountDTO>? Accounts { get; set; }
+
     }
 }

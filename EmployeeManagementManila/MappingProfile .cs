@@ -10,6 +10,7 @@ namespace EmployeeManagementManila
         public MappingProfile()
         {
             CreateMap<Employee, EmployeeDTO>();
+            CreateMap<Account, AccountDTO>();
         }
     }
 }
