@@ -1,6 +1,9 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 
 namespace EmployeeManagementManila.Controllers
 {
@@ -10,10 +13,12 @@ namespace EmployeeManagementManila.Controllers
     {
         private ILoggerManager _logger;
         private IRepositoryWrapper _repository;
-        public EmployeeController(ILoggerManager logger, IRepositoryWrapper repository)
+        private IMapper _mapper;
+        public EmployeeController(ILoggerManager logger, IRepositoryWrapper repository, IMapper mapper)
         {
             _logger = logger;
             _repository = repository;
+            _mapper = mapper;
         }
         [HttpGet]
         public IActionResult GetAllOwners()
@@ -22,7 +27,10 @@ namespace EmployeeManagementManila.Controllers
             {
                 var employees = _repository.Employee.GetAllEmployees();
                 _logger.LogInformation($"Returned all employees from database.");
-                return Ok(employees);
+
+                var employeesResult = _mapper.Map<IEnumerable<EmployeeDTO>>(employees);
+
+                return Ok(employeesResult);
             }
             catch (Exception ex)
             {
